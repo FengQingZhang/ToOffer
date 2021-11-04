@@ -11,15 +11,35 @@ import java.util.Stack;
  */
 public class reversionStack {
 
+    /**
+     * 此方法的效果为返回栈底的值，并移除它
+     * @param stack
+     * @return
+     */
     public static int returnStackBottom(Stack<Integer> stack){
         int result = stack.pop();
         if (stack.isEmpty()){
             return result;
         }else {
-
-            return
+            int last = returnStackBottom(stack);
+            stack.push(result);
+            return last;
         }
     }
+
+    private static void reverse(Stack<Integer> stack){
+        //临界条件
+        if (stack.isEmpty()){
+            return;
+        }
+        //获取栈底的元素
+        int i = returnStackBottom(stack);
+        //递归获取
+        reverse(stack);
+        //重新存放
+        stack.push(i);
+    }
+
 
     public static Stack<Integer> reversion(Stack<Integer> stack, Stack<Integer> nStack){
         if (stack.isEmpty()){
@@ -36,8 +56,8 @@ public class reversionStack {
         stack.push(3);
         stack.push(4);
         stack.push(5);
-        Stack<Integer> stack1 =  reversion(stack,new Stack<Integer>());
-        System.out.println(stack1);
+        reverse(stack);
+        System.out.println(stack.toString());
 
     }
 }
